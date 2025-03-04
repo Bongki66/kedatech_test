@@ -6,15 +6,16 @@ _logger = logging.getLogger(__name__)
 
 class MaterialApiController(http.Controller):
 
-    @http.route('/material/<string:type>', auth='user', type='json', methods=["GET",])
-    def action_get_material(self, type):
+    @http.route(['/material', '/material/<string:type>'], auth='user', type='json', methods=["GET",])
+    def action_get_material(self, type=False):
         res = {
             'status': False,
             'res': False,
         }
 
-        domain = []
-        if type != 'all':
+        if type in [False, 'all']:
+            domain = []
+        else:
             domain = [('x_type', '=', type)]
 
         records = request.env['custom.material'].sudo().search(domain)
