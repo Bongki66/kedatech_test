@@ -11,10 +11,10 @@ class Material(models.Model):
     name = fields.Char('Name', copy=False)
     x_code = fields.Char('Code', copy=False)
     x_type = fields.Selection([
-        ('Fabric', 'Fabric'),
-        ('Jeans', 'Jeans'),
-        ('Cotton', 'Cotton'),
-    ], copy=False, string='Type')
+        ('fabric', 'Fabric'),
+        ('jeans', 'Jeans'),
+        ('cotton', 'Cotton'),
+    ], copy=False, string='Type', default='fabric', required=True)
     x_buy_price = fields.Float(string='Buy Price', copy=False, default=100)
     x_supplier_id = fields.Many2one('res.partner', string='Supplier', copy=False)
 
