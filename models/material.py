@@ -13,8 +13,9 @@ class Material(models.Model):
         ('fabric', 'Fabric'),
         ('jeans', 'Jeans'),
         ('cotton', 'Cotton'),
-    ], copy=False)
+    ], copy=False, string='Type')
     x_buy_price = fields.Float(string='Buy Price', copy=False, default=100)
+    x_supplier_id = fields.Many2one('res.partner', string='Supplier', copy=False)
 
     @api.constrains('x_buy_price')
     def _validate_buy_price(self):
