@@ -56,5 +56,20 @@
                 </search>
             </field>
         </record>
+
+        <!-- ACTION -->
+        <record id="action_material" model="ir.actions.act_window">
+            <field name="name">Material</field>
+            <field name="res_model">custom.material</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_material_search"/>
+        </record>
+
+        <!-- MENU -->
+        <menuitem id="menu_material_root" name="Material"
+                  sequence="10"/>
+        
+        <menuitem id="menu_material" name="Material" action="action_material"
+                  parent="menu_material_root" sequence="1"/>
     </data>
 </odoo>
