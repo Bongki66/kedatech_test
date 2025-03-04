@@ -15,7 +15,7 @@ class Material(models.Model):
         ('jeans', 'Jeans'),
         ('cotton', 'Cotton'),
     ], copy=False, string='Type', default='fabric', required=True)
-    x_buy_price = fields.Float(string='Buy Price', required=True)
+    x_buy_price = fields.Float(string='Buy Price', required=True, default=100)
     x_supplier_id = fields.Many2one('res.partner', string='Supplier', required=True)
 
     @api.constrains('x_buy_price')
