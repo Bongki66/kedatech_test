@@ -7,7 +7,10 @@
     'sequence': 1,
     'description': """""",
     'depends' : ['base_setup'],
-    'data': [],
+    'data': [
+        # security
+        'security/ir.model.access.csv',
+    ],
     'demo': [],
     'qweb': [],
     'installable': True,
