@@ -6,7 +6,7 @@ _logger = logging.getLogger(__name__)
 
 class MaterialApiController(http.Controller):
 
-    @http.route(['/material', '/material/<string:type>'], auth='user', type='json', methods=["GET",])
+    @http.route(['/api/material', '/api/material/<string:type>'], auth='user', type='json', methods=["GET",])
     def action_get_material(self, type=False):
         res = {
             'status': False,
@@ -37,7 +37,7 @@ class MaterialApiController(http.Controller):
         res['res'] = rec_dict
         return res
 
-    @http.route('/material/update/<int:id>', auth='user', type='json', methods=["POST",])
+    @http.route('/api/material/update/<int:id>', auth='user', type='json', methods=["POST",])
     def action_update_material(self, id, **kw):
         try:
             material_obj = request.env['custom.material'].sudo().search([('id', '=', id)])
@@ -46,6 +46,27 @@ class MaterialApiController(http.Controller):
                 return {
                     'status': 200,
                     'res': res_update,
+                }
+            else:
+                return {
+                    'status': 500,
+                    'err': 'Record not found.',
+                }
+        except Exception as e:
+            return {
+                'status': 500,
+                'err': e,
+            }
+    
+    @http.route('/api/material/remove/<int:id>', auth='user', type='json', methods=["POST",])
+    def action_remove_material(self, id):
+        try:
+            material_obj = request.env['custom.material'].sudo().search([('id', '=', id)])
+            if material_obj:
+                res_delete = material_obj.sudo().unlink()
+                return {
+                    'status': 200,
+                    'res': res_delete,
                 }
             else:
                 return {
