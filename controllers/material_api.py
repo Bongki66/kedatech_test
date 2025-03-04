@@ -38,7 +38,7 @@ class MaterialApiController(http.Controller):
         return res
 
     @http.route('/material/update/<int:id>', auth='user', type='json', methods=["POST",])
-    def action_create_material(self, id, **kw):
+    def action_update_material(self, id, **kw):
         try:
             material_obj = request.env['custom.material'].sudo().search([('id', '=', id)])
             if material_obj:
