@@ -6,13 +6,14 @@ from odoo.exceptions import ValidationError
 class Material(models.Model):
     _name = 'custom.material'
     _description = 'Material'
+    _order = 'x_code,name'
 
-    x_name = fields.Char('Name', copy=False)
+    name = fields.Char('Name', copy=False)
     x_code = fields.Char('Code', copy=False)
     x_type = fields.Selection([
-        ('fabric', 'Fabric'),
-        ('jeans', 'Jeans'),
-        ('cotton', 'Cotton'),
+        ('Fabric', 'Fabric'),
+        ('Jeans', 'Jeans'),
+        ('Cotton', 'Cotton'),
     ], copy=False, string='Type')
     x_buy_price = fields.Float(string='Buy Price', copy=False, default=100)
     x_supplier_id = fields.Many2one('res.partner', string='Supplier', copy=False)

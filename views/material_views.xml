@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- TREE -->
+        <record id="view_material_tree" model="ir.ui.view">
+            <field name="name">view.material.tree</field>
+            <field name="model">custom.material</field>
+            <field name="arch" type="xml">
+                <tree string="Material">
+                    <field name="x_code"/>
+                    <field name="name"/>
+                    <field name="x_type"/>
+                    <field name="x_supplier_id"/>
+                    <field name="x_buy_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- FORM -->
+        <record id="view_material_form" model="ir.ui.view">
+            <field name="name">view.material.form</field>
+            <field name="model">custom.material</field>
+            <field name="arch" type="xml">
+                <form string="Material">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="x_code"/>
+                                <field name="name"/>
+                                <field name="x_type"/>
+                            </group>
+                            <group>
+                                <field name="x_supplier_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="x_buy_price"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- SEARCH -->
+        <record id="view_material_search" model="ir.ui.view">
+            <field name="name">view.material.search</field>
+            <field name="model">custom.material</field>
+            <field name="arch" type="xml">
+                <search string="Material">
+                    <field name="x_code"/>
+                    <field name="name"/>
+                    <field name="x_type"/>
+                    <field name="x_supplier_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Type" name="group_type" domain="" context="{'group_by':'x_type'}"/>
+                        <filter string="Supplier" name="group_supplier" domain="" context="{'group_by':'x_supplier_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>
