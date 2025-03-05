@@ -6,7 +6,7 @@ _logger = logging.getLogger(__name__)
 
 class MaterialApiController(http.Controller):
 
-    @http.route(['/api/material', '/api/material/<string:type>'], auth='user', type='json', methods=["GET",])
+    @http.route(['/api/material', '/api/material/<string:type>'], auth='user', type='json')
     def action_get_material(self, type=False):
         res = {
             'status': False,
