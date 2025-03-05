@@ -13,29 +13,39 @@ class MaterialApiController(http.Controller):
             'res': False,
         }
 
-        if type in [False, 'all']:
-            domain = []
-        else:
-            domain = [('x_type', '=', type)]
+        try:
+            if type in [False, 'all']:
+                domain = []
+            else:
+                domain = [('x_type', '=', type)]
 
-        records = request.env['custom.material'].sudo().search(domain)
+            records = request.env['custom.material'].sudo().search(domain)
 
-        rec_dict = {}
-        for rec in records:
-            rec_dict[rec.id] = {
-                'code': rec.x_code,
-                'name': rec.name,
-                'type': rec.x_type,
-                'buy_price': rec.x_buy_price,
-                'supplier': {
-                    'id': rec.x_supplier_id.id,
-                    'name': rec.x_supplier_id.name,
-                }
+            if records:
+                rec_dict = {}
+                for rec in records:
+                    rec_dict[rec.id] = {
+                        'code': rec.x_code,
+                        'name': rec.name,
+                        'type': rec.x_type,
+                        'buy_price': rec.x_buy_price,
+                        'supplier': {
+                            'id': rec.x_supplier_id.id,
+                            'name': rec.x_supplier_id.name,
+                        }
+                    }
+                
+                res['status'] = 200
+                res['res'] = rec_dict
+            else:
+                res['status'] = 500
+                res['err'] = 'Record not found.'
+            return res
+        except Exception as e:
+            return {
+                'status': 500,
+                'err': e,
             }
-        
-        res['status'] = 200
-        res['res'] = rec_dict
-        return res
 
     @http.route('/api/material/update/<int:id>', auth='user', type='json', methods=["POST",])
     def action_update_material(self, id, **kw):
